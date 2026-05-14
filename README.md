@@ -20,11 +20,32 @@ Artificial Analysis describes Terminal-Bench Hard as:
 - Terminus 2 agent harness
 - 3 repeats per task
 - pass/fail test-suite scoring
+- pass@1 reported as the average over all task repeats
 
 Source: [Artificial Analysis Intelligence Benchmarking Methodology](https://artificialanalysis.ai/methodology/intelligence-benchmarking#terminal-bench-hard)
 
 At the pinned Terminal-Bench commit, there are 48 tasks labeled `difficulty: hard`.
 The 44 tasks in Artificial Analysis' published list are those 48 minus 4 tasks excluded by AA.
+
+## AA Evaluation Policy
+
+The Artificial Analysis Intelligence Index v4.0.4 methodology lists Terminal-Bench Hard under the Coding category:
+
+- Category: Coding
+- Field: Agentic Workflows
+- Workload: 44 tasks, 3 repeats
+- Response type: terminal-based task execution
+- Scoring: test-suite pass/fail, pass@1
+- Intelligence Index weight: 16.7%
+
+For the agent execution policy, Artificial Analysis states that:
+
+- Each task is successful only if its task-specific test suite fully passes.
+- The Terminus 2 harness is used for consistency across models.
+- Agent episodes are capped at 100 per task repeat.
+- Task-level timeouts are overridden by a global 24-hour timeout.
+- Each task repeat has a maximum cumulative input budget of 1 million tokens.
+- Artificial Analysis reports that these constraints mostly affect models stuck in unsuccessful loops, with no consistent observed performance differences caused by the constraints.
 
 ## Runnable Layout
 
