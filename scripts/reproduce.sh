@@ -19,9 +19,10 @@ git -C "$WORKDIR/terminal-bench" fetch --quiet --depth 1 origin "$COMMIT"
 git -C "$WORKDIR/terminal-bench" checkout --quiet FETCH_HEAD
 
 HARD_LIST="$WORKDIR/tbench_hard_at_commit.txt"
-AA_LIST="$REPO_ROOT/data/aa_terminal_bench_hard_tasks.txt"
+AA_LIST="$REPO_ROOT/artifacts/aa_terminal_bench_hard_tasks.txt"
 NOT_IN_AA="$WORKDIR/not_in_aa.txt"
 MISSING_FROM_HARD="$WORKDIR/missing_from_hard.txt"
+EXTRACTED_TASKS="$WORKDIR/extracted_tasks.txt"
 
 git -C "$WORKDIR/terminal-bench" grep -l '^difficulty: hard$' HEAD -- tasks \
   | sed 's#HEAD:tasks/##; s#/task.yaml##' \
@@ -36,3 +37,11 @@ printf 'Hard tasks not in AA published list: %s\n' "$(wc -l < "$NOT_IN_AA" | tr 
 cat "$NOT_IN_AA"
 printf 'AA tasks missing from pinned hard list: %s\n' "$(wc -l < "$MISSING_FROM_HARD" | tr -d ' ')"
 cat "$MISSING_FROM_HARD"
+
+if [ -d "$REPO_ROOT/tasks" ]; then
+  find "$REPO_ROOT/tasks" -mindepth 1 -maxdepth 1 -type d \
+    | sed 's#^.*/##' \
+    | sort > "$EXTRACTED_TASKS"
+  printf 'Task directories in this repository: %s\n' "$(wc -l < "$EXTRACTED_TASKS" | tr -d ' ')"
+  diff -u "$AA_LIST" "$EXTRACTED_TASKS"
+fi

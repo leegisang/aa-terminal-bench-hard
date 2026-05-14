@@ -93,12 +93,12 @@ def main() -> int:
     parser.add_argument(
         "--aa-list",
         type=Path,
-        default=Path("data/aa_terminal_bench_hard_tasks.txt"),
+        default=Path("artifacts/aa_terminal_bench_hard_tasks.txt"),
     )
     parser.add_argument(
         "--tsv",
         type=Path,
-        default=Path("data/current_benchmark_crosswalk.tsv"),
+        default=Path("artifacts/current_benchmark_crosswalk.tsv"),
     )
     parser.add_argument(
         "--markdown",
