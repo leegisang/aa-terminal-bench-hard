@@ -9,6 +9,20 @@ The important distinction:
 - This is not the official Terminal-Bench 1.0 split, and it is not Terminal-Bench 2.0.
 - Terminal-Bench 2.0 lives here: https://github.com/harbor-framework/terminal-bench-2
 
+## Artificial Analysis Naming
+
+Artificial Analysis currently refers to two different Terminal-Bench-based evaluations:
+
+| Artificial Analysis surface | Terminal-Bench eval | Task source | Tasks | Format | Applies to this repo |
+|---|---|---|---:|---|---|
+| Intelligence Index / Coding Index | Terminal-Bench Hard | `terminal-bench-core` hard subset at commit `74221fb`, with exclusions | 44 | legacy `task.yaml` Terminal-Bench tasks | yes |
+| Coding Agent Index | Terminal-Bench v2 | Terminal-Bench 2.0, with five environment-compatibility exclusions | 84 of 89 | Harbor/TB2 `task.toml` tasks | no |
+
+The AA Intelligence Index methodology page documents Terminal-Bench Hard, not Terminal-Bench v2.
+The AA Coding Agent Index methodology page documents Terminal-Bench v2.
+
+This repository tracks the first row only: the 44-task Terminal-Bench Hard evaluation used in the Intelligence/Coding Index.
+
 ## Task Set
 
 Artificial Analysis describes Terminal-Bench Hard as:
