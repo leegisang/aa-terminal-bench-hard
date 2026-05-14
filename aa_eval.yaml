@@ -1,0 +1,27 @@
+# Artificial Analysis-style evaluation config for this repository.
+#
+# This file intentionally lives at the repository root instead of editing each
+# task.yaml. The task manifests are upstream benchmark data; AA-specific policy
+# belongs in the evaluation wrapper.
+
+benchmark:
+  name: "AA Terminal-Bench Hard"
+  source_methodology_url: "https://artificialanalysis.ai/methodology/intelligence-benchmarking#terminal-bench-hard"
+  task_list_path: "artifacts/aa_terminal_bench_hard_tasks.txt"
+  task_root: "tasks"
+  task_manifest: "task.yaml"
+  questions: 44
+  repeats: 3
+  scoring: "test_suite_pass_fail_pass_at_1"
+  pass_value: 1
+  fail_value: 0
+  aggregate: "mean_over_all_task_repeats"
+
+execution:
+  agent_harness: "Terminus 2"
+  response_type: "terminal_based_task_execution"
+  max_episodes: 100
+  global_timeout_sec: 86400
+  override_task_level_timeouts: true
+  cumulative_input_token_budget: 1000000
+  notes: "The generic runner exports these limits as AA_* environment variables; the selected agent harness must enforce episode and token limits."

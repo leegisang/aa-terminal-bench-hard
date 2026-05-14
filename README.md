@@ -118,6 +118,25 @@ tb run --dataset-path tasks --agent oracle --task-id aimo-airline-departures
 
 For agent runs, use the normal Terminal-Bench CLI flags with `--dataset-path tasks`.
 
+## AA-Style Eval Runner
+
+This repository keeps upstream task manifests unchanged. AA-specific evaluation policy is stored in [`aa_eval.yaml`](aa_eval.yaml), and the generic wrapper lives in [`scripts/eval.py`](scripts/eval.py).
+
+Smoke-test the planned 44-task / 3-repeat matrix without running an agent:
+
+```bash
+./scripts/run_eval.sh --dry-run
+```
+
+Run a real evaluation by providing a command that executes one task attempt and exits with `0` on pass and non-zero on fail:
+
+```bash
+AA_RUNNER_COMMAND='tb run --dataset-path {repo}/tasks --task-id {task} --agent my-agent' \
+  ./scripts/run_eval.sh
+```
+
+The wrapper exports AA policy values such as `AA_MAX_EPISODES=100`, `AA_GLOBAL_TIMEOUT_SEC=86400`, and `AA_CUMULATIVE_INPUT_TOKEN_BUDGET=1000000` to the runner command. The selected agent harness must enforce episode and token limits; this wrapper enforces the wall-clock timeout and computes the final binary `pass@1` average.
+
 ## Artifacts
 
 - [`artifacts/aa_terminal_bench_hard_tasks.txt`](artifacts/aa_terminal_bench_hard_tasks.txt): the 44 task IDs published by Artificial Analysis.
