@@ -61,6 +61,33 @@ For the agent execution policy, Artificial Analysis states that:
 - Each task repeat has a maximum cumulative input budget of 1 million tokens.
 - Artificial Analysis reports that these constraints mostly affect models stuck in unsuccessful loops, with no consistent observed performance differences caused by the constraints.
 
+## Relationship to TB1 and TB2
+
+AA Terminal-Bench Hard should be treated as its own pinned evaluation subset:
+
+```text
+AA Terminal-Bench Hard
+= Terminal-Bench repo snapshot at 74221fb
++ tasks labeled difficulty: hard at that snapshot
+- 4 hard-labeled tasks excluded by Artificial Analysis
+= 44 evaluated tasks
+```
+
+It is related to, but not identical with, the official benchmark releases:
+
+| Set | Source | Task count | Harness / format | Relationship to AA TB Hard |
+|---|---|---:|---|---|
+| AA Terminal-Bench Hard | `harbor-framework/terminal-bench` commit `74221fb` | 44 | Legacy Terminal-Bench task format | This repository's task set |
+| Terminal-Bench 1.0 | `terminal-bench-core@0.1.1` / current TB1 benchmark page | 80 | Legacy Terminal-Bench task format | Same family, different release snapshot; 21 / 44 AA task IDs currently overlap |
+| Terminal-Bench 2.0 | `harbor-framework/terminal-bench-2` / current TB2 benchmark page | 89 | Harbor task format | New benchmark generation; 19 / 44 AA task IDs currently overlap |
+
+The practical implications:
+
+- AA TB Hard is not a subset of current TB1. It is a pinned hard subset from a later `terminal-bench` repository snapshot than the `terminal-bench-core@0.1.1` TB1 release.
+- AA TB Hard is not a subset of TB2. TB2 is a newer Harbor-format benchmark with curated and revalidated tasks.
+- Matching task IDs do not guarantee byte-identical tasks. Instructions, tests, metadata, timeouts, Docker environments, and difficulty labels may differ across AA TB Hard, TB1, and TB2.
+- The crosswalk below records task ID overlap and current difficulty labels only. It should not be read as evidence that the task implementations are identical.
+
 ## Runnable Layout
 
 The tasks are copied from:
