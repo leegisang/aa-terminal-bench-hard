@@ -118,6 +118,18 @@ tb run --dataset-path tasks --agent oracle --task-id aimo-airline-departures
 
 For agent runs, use the normal Terminal-Bench CLI flags with `--dataset-path tasks`.
 
+## Provenance Policy
+
+The checked-in task files are treated as benchmark data, not local configuration. In particular, this repository does not edit task-level `task.yaml`, `Dockerfile`, `docker-compose.yaml`, tests, or solutions to encode Artificial Analysis policy.
+
+That separation is intentional:
+
+- Task manifests, Docker files, tests, and solutions define the benchmark task itself. Changing them would create a forked benchmark rather than a reconstruction of the AA task set.
+- AA-specific choices such as task subset, repeats, pass/fail `pass@1` aggregation, episode caps, token caps, and global timeouts are run policy. They belong in root-level config and runner scripts.
+- Keeping task files unchanged makes provenance checks and upstream diffs straightforward.
+
+AA-specific run policy is therefore stored in [`aa_eval.yaml`](aa_eval.yaml) and applied by [`scripts/eval.py`](scripts/eval.py).
+
 ## AA-Style Eval Runner
 
 This repository keeps upstream task manifests unchanged. AA-specific evaluation policy is stored in [`aa_eval.yaml`](aa_eval.yaml), and the generic wrapper lives in [`scripts/eval.py`](scripts/eval.py).
